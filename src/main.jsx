@@ -1,23 +1,23 @@
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
 import ChatRoom from "./pages/ChatRoom";
 import Login from "./pages/Login";
 import PrivateRoute from "./routes/PrivateRoutes.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthProvider } from './context/AuthContext.jsx';
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Login />,
       },
       {
-        path: '/chat',
+        path: "/chat",
         element: (
           <PrivateRoute>
             <ChatRoom />
@@ -28,8 +28,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
-  <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </AuthProvider>
-)
+);

@@ -1,7 +1,7 @@
 import { AuthContext } from "../context/AuthContext.jsx";
 import { useContext, useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../firebase/Firebase.jsx"
+import { db } from "../firebase/Firebase.jsx";
 
 const SendMsg = () => {
   const [input, setInput] = useState("");
@@ -9,29 +9,29 @@ const SendMsg = () => {
   // console.log(currUser)
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if(input.trim() === ""){
+    if (input.trim() === "") {
       alert("Enter MESSAGE first");
       return;
     }
 
-    try{
-      const {uid, displayName, photoURL} = currUser;
+    try {
+      const { uid, displayName, photoURL } = currUser;
       await addDoc(collection(db, "messages"), {
         text: input,
         name: displayName,
         avatar: photoURL,
         createAt: serverTimestamp(),
-        uid
-      })
-    }catch(e){
-      console.log(e)
+        uid,
+      });
+    } catch (e) {
+      console.log(e);
     }
     // console.log(input)
 
-    setInput("")
-  }
+    setInput("");
+  };
 
   return (
     <div className=" fixed w-full bottom-0 bg-slate-100 p-4">
@@ -49,7 +49,7 @@ const SendMsg = () => {
             className="flex-shrink-0 border-transparent border-4 text-black hover:text-blue-500 text-xl py-1 px-2 rounded"
             type="submit"
           >
-            SEND 
+            SEND
           </button>
         </div>
       </form>
@@ -59,12 +59,3 @@ const SendMsg = () => {
 
 export default SendMsg;
 
-
- 
-
-// // Add a new document with a generated id.
-// const docRef = await addDoc(collection(db, "cities"), {
-//   name: "Tokyo",
-//   country: "Japan"
-// });
-// console.log("Document written with ID: ", docRef.id);

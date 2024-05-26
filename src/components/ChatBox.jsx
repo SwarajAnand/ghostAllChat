@@ -1,30 +1,29 @@
 import Message from "./Message";
 import { useEffect, useState, useRef } from "react";
-import { collection, query, onSnapshot, orderBy} from "firebase/firestore";
-import { db } from "../firebase/Firebase.jsx"
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
+import { db } from "../firebase/Firebase.jsx";
 
 const ChatBox = () => {
-    const [msg, setMsg] = useState([])
-    const msgRef = useRef();
+  const [msg, setMsg] = useState([]);
+  const msgRef = useRef();
 
-    const scrollBottom = () => {
-      msgRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+  const scrollBottom = () => {
+    msgRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
-    useEffect(() => {
-      scrollBottom()
-    }, [msg])
-    
+  useEffect(() => {
+    scrollBottom();
+  }, [msg]);
 
   useEffect(() => {
     const q = query(collection(db, "messages"), orderBy("createAt"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const messages = [];
       querySnapshot.forEach((doc) => {
-        messages.push({...doc.data(), id: doc.id});
+        messages.push({ ...doc.data(), id: doc.id });
       });
 
-      setMsg(messages)
+      setMsg(messages);
     });
 
     return unsubscribe;
